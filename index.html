@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Food Analysis</title>
+</head>
+<body>
+    <h1>challenge 20</h1>
+    <script>
+        const dogs = [
+            { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+            { weight: 8, curFood: 200, owners: ['Matilda'] },
+            { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+            { weight: 32, curFood: 340, owners: ['Michael'] },
+        ];
+
+        dogs.forEach(dog => dog.recommendedFood = Math.trunc(dog.weight ** 0.75 * 28));
+
+        const sarahDog = dogs.find(dog => dog.owners.includes('Sarah'));
+        console.log(`Sarah's dog is eating ${sarahDog.curFood > sarahDog.recommendedFood ? 'too much' : 'too little'}.`);
+
+        const ownersEatTooMuch = dogs.filter(dog => dog.curFood > dog.recommendedFood).flatMap(dog => dog.owners);
+        const ownersEatTooLittle = dogs.filter(dog => dog.curFood < dog.recommendedFood).flatMap(dog => dog.owners);
+
+        console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much!`);
+        console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too little!`);
+
+        const anyEatingExactlyRecommended = dogs.some(dog => dog.curFood === dog.recommendedFood);
+        console.log(`Any dog eating exactly the recommended amount: ${anyEatingExactlyRecommended}`);
+
+        const anyEatingOkayAmount = dogs.some(dog => dog.curFood > dog.recommendedFood * 0.90 && dog.curFood < dog.recommendedFood * 1.10);
+        console.log(`Any dog eating an okay amount of food: ${anyEatingOkayAmount}`);
+
+        const dogsEatingOkayAmount = dogs.filter(dog => dog.curFood > dog.recommendedFood * 0.90 && dog.curFood < dog.recommendedFood * 1.10);
+
+        const dogsCopy = dogs.slice().sort((a, b) => a.recommendedFood - b.recommendedFood);
+        console.log(dogsCopy);
+    </script>
+</body>
+</html>
